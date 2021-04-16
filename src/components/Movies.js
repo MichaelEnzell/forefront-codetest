@@ -60,6 +60,7 @@ class Movies extends Component {
 
     onAddChild = () => {
         if (!this.state.loadInit) {
+            //Fetch API-configuration for correct image-URL base
             fetch(process.env.REACT_APP_MOVIEDB_API_URL +
                 '/' + process.env.REACT_APP_MOVIEDB_API_VERSION +
                 '/' + process.env.REACT_APP_MOVIEDB_API_CONFIGURATION +
@@ -95,6 +96,8 @@ class Movies extends Component {
                             movies: this.state.movies.concat(result.results),
                             page: this.state.page + 1
                         });
+                        //Call API until 5 pages in total have been fetched and concatenated to the list of movies
+                        //API will only return 20 movies / page
                         if (this.state.page < 6) {
                             this.onAddChild()
                         }
@@ -106,6 +109,7 @@ class Movies extends Component {
                         });
                     }
                 )
+        //Set short delay on API-call in order for loading symbol to be displayed
         }, 300);
     }
 }
